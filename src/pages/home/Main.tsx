@@ -2,15 +2,17 @@ import * as React from 'react';
 import { useState } from 'react';
 import { Bookmark, Compass, Heart, Home, MessageCircle, MoreHorizontal, PlusSquare, Search, Share } from "lucide-react";
 import { Link } from "react-router-dom";
+import Stories from '../../components/home/Stories';
+import NavigationBar from '../../components/ui/NavigationBar';
 
 const Main = () => {
   const stories = [
     { id: 1, username: 'your_story', isMe: true },
-    { id: 2, username: 'user1' },
-    { id: 3, username: 'user2' },
-    { id: 4, username: 'user3' },
-    { id: 5, username: 'user4' },
-    { id: 6, username: 'user5' },
+    { id: 2, username: 'user1', isMe: false },
+    { id: 3, username: 'user2', isMe: false },
+    { id: 4, username: 'user3', isMe: false },
+    { id: 5, username: 'user4', isMe: false },
+    { id: 6, username: 'user5', isMe: false },
   ];
 
   const posts = [
@@ -45,56 +47,14 @@ const Main = () => {
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* Navigation Bar */}
-      <nav className="bg-white border-b border-gray-300 fixed top-0 w-full z-50">
-        <div className="max-w-5xl mx-auto flex justify-between items-center h-16 px-4">
-          {/* Logo */}
-          <Link to="/" className="w-28">
-            <img src="/api/placeholder/103/29" alt="Instagram" className="h-7" />
-          </Link>
-
-          {/* Search Bar - Only visible on desktop */}
-          <div className="hidden md:flex items-center bg-gray-50 rounded-lg p-2 w-64">
-            <Search className="w-4 h-4 text-gray-400 mr-2" />
-            <input
-              type="text"
-              placeholder="검색"
-              className="bg-transparent focus:outline-none text-sm w-full"
-            />
-          </div>
-
-          {/* Navigation Icons */}
-          <div className="flex items-center space-x-6">
-            <Home className="w-6 h-6" />
-            <MessageCircle className="w-6 h-6" />
-            <PlusSquare className="w-6 h-6" />
-            <Compass className="w-6 h-6" />
-            <Heart className="w-6 h-6" />
-            <img src="/api/placeholder/24/24" alt="profile" className="w-6 h-6 rounded-full" />
-          </div>
-        </div>
-      </nav>
+      <NavigationBar/>
 
       {/* Main Content */}
       <main className="pt-20 pb-8 max-w-5xl mx-auto flex">
         {/* Stories and Posts Feed */}
         <div className="flex-grow max-w-[470px] mx-auto md:mr-8">
           {/* Stories */}
-          <div className="bg-white border border-gray-300 rounded-lg mb-4 p-4 overflow-x-auto">
-            <div className="flex space-x-4">
-              {stories.map(story => (
-                <div key={story.id} className="flex flex-col items-center flex-shrink-0">
-                  <div className={`w-16 h-16 rounded-full ring-2 ${story.isMe ? 'ring-gray-300' : 'ring-pink-500'} p-[2px]`}>
-                    <img
-                      src="/api/placeholder/56/56"
-                      alt={story.username}
-                      className="w-full h-full rounded-full"
-                    />
-                  </div>
-                  <span className="text-xs mt-1 truncate w-16 text-center">{story.username}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+          <Stories stories={stories} />
 
           {/* Posts */}
           {posts.map(post => (
